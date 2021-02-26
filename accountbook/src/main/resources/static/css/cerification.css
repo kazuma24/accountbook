@@ -1,0 +1,17 @@
+.cerification-content {
+    margin: auto;
+    width: fit-content;
+    font-size: larger;
+    padding: 30px 40px;
+    background-color: rgb(233 235 236 / 80%);
+}
+.cerification-table {
+    margin-bottom: 20px;
+}
+.cerification-button {
+    display: flex;
+    text-align: center;
+}
+.cerification-button button {
+    margin: 0px 15px;
+}

@@ -1,0 +1,41 @@
+/*アカウント登録画面*/
+.account-registration {
+    display: flex;
+    width: 100%;
+}
+.account-registration-contents label {
+    display: block;
+}
+.account-registration-contents input {
+    width: 250px;
+    height: 30px;
+}
+.account-registration-contents {
+    display: flex;
+}
+.account-registration-form{
+    width: 50%;
+    background-color: rgb(233 235 236 / 80%);
+    padding: 0px 10px 20px 30px;
+    margin: 0px 30px 0px 0px;
+}
+.application-descrition {
+    background-color: rgb(233 235 236 / 80%);
+    padding: 0px 30px;
+}
+.account-registration-button-area {
+    display: flex;
+    margin-top: 20px;
+}
+.account-registration-button-area > a {
+    text-decoration: none;
+}
+.green-button {
+    margin-right: 5px;
+}
+.err {
+    color: rgb(231, 56, 56);
+}
+/* .application-descrition {
+    width: 40%;
+} */

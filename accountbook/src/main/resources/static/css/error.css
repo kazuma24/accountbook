@@ -1,0 +1,8 @@
+.error-content {
+    text-align: center;
+    font-size: large;
+    color: red;
+    padding: 20px;
+    border: 3px red solid;
+    background-color: rgb(233 235 236 / 80%);
+}

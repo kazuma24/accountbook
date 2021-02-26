@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>web money management</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css" />
+    <link rel="stylesheet" th:href="@{/css/accountregistration.css}" type="text/css" />
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/favicon.png}">
+</head>
+<body>
+    <div class="title">web money management</div>
+    <div class="main-view">
+        <div class="account-registration">
+            <div class="account-registration-form">
+                <h3>アカウント登録</h3>
+                <div class="account-registration-contents" th:object="${account}">
+                    <div>
+                        <form th:action="@{/}" method="post" onsubmit="return cancelsubmit()">
+
+                            <label for="name">name</label>
+                            <input
+                             type="text"
+                             id="name"
+                             name="name"
+                             maxlength="30"
+                             th:value="*{name}"
+                             required
+                            />
+                            
+                            <label for="email">email</label>
+                            <input
+                             type="email"
+                             id="email"
+                             name="email"
+                             th:value="*{email}"
+                             required
+                             />
+                            
+                            <label for="loginId">loginID</label>
+                            <input 
+                             type="text"
+                             id="loginId"
+                             name="loginId"
+                             maxlength="20"
+                             th:value="*{loginId}"
+                             required
+                             />
+                            
+                            <label for="password">password</label>
+                            <input 
+                             type="text" 
+                             id="password" 
+                             name="password"
+                             maxlength="20"
+                             th:value="*{password}"
+                             required
+                             />
+                            
+                            <div class="account-registration-button-area">
+                                <a href='/login'>
+                                    <button type="button" class="green-button" >ログイン</button>
+                                </a>
+                                <button type="submit" class="prymari-button" id="sign-up" >
+                                    登録
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div style="font-size: smaller;">
+                        <ul th:if="${error}">
+                            <li th:text="${errorMessage}" class="err"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="application-descrition">
+                <div class="application-descrition-contents">
+                    <h3>web money management？</h3>
+                    <h5>お金の管理がすべてWeb上で解決できる</h5>
+                    <ul>
+                        <li>毎日の出費を管理</li>
+                        <li>毎月の支払を管理</li>
+                        <li>家賃や光熱費など項目ごとに明確に管理</li>
+                        <li>月間の収入と支出をレポート化</li>
+                        <li>支出だけでなく収入も管理</li>
+                        <li>無駄使いを可視化</li>
+                        <li>お金の使い道傾向がわかる</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/accountregister.js}"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>web money management</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css" />
+    <link rel="stylesheet" th:href="@{/css/login.css}" type="text/css" />
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/favicon.png}">
+</head>
+<body>
+    <div class="title">web money management</div>
+    <div class="main-view">
+        <div class="login-content">
+            <div class="login-content-form">
+                <form th:action="@{/authenticate}" onsubmit="return check()" method="post" th:object="${loginForm}">
+                    <label for="loginId">loginID&nbsp;&nbsp;&nbsp;
+                        <input type="text" name="loginId" id="loginId" th:value="*{loginId}" required />
+                    </label>
+                    <label for="password">password
+                        <input type="text" name="password" id="password" required />
+                    </label>
+                    <div class="account-registration-screen-guidance">
+                        アカウントを登録してない方は<a href="/">こちら</a>
+                    </div>
+                    <label for="automatic">
+                        次回から自動でログイン
+                        <input type="checkbox" name="remember-me" id="automatic" />
+                    </label>
+                    <button type="submit" class="prymari-button">login</button>
+                    <p th:if="${param.error}" style="color: rgb(167, 18, 18);">入力された認証情報は存在しません</p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/login.js}"></script>
+</body>
+</html>

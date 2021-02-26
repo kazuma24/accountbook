@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>web money management</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css" />
+    <link rel="stylesheet" th:href="@{/css/error.css}" type="text/css" />
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/favicon.png}">
+</head>
+<body>
+    <div class="title">web money management</div>
+    <div class="main-view">
+        <div class="error-content">
+            <div class="error-code">システムエラー</div>
+            <div class="error-message-template">システム内部でエラーが発生しました。</div>
+        </div>
+        <a href="/main">
+            <button class="gray-button">メイン画面へ</button>
+        </a>
+        <p class="error-message" th:text="${errorMessage}"></p>
+    </div>
+</body>
+</html>

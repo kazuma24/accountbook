@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>web money management</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css" />
+    <link rel="stylesheet" th:href="@{/css/inquiry.css}" type="text/css" />
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/favicon.png}">
+</head>
+<body>
+    <div class="title">web money management</div>
+    <div class="main-view">
+        <div class="inquiry-content">
+            <div class="inquiry-content-form">
+                <h2>問い合わせ</h2>
+                <form th:action="@{/inquiry}" method="post">
+                    <label for="name">name&nbsp;&nbsp;&nbsp;
+                        <input type="text" name="name" id="name" required />
+                    </label>
+                    <label for="contents">contents
+                    </label>
+                    <textarea id="contents" name="contents" maxlength="500" required></textarea>
+                    <div style="display: flex;">
+                        <a href="/main">
+                            <button type="button" class="gray-button">キャンセル</button>
+                        </a>
+                        <button type="submit" class="prymari-button">送信</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

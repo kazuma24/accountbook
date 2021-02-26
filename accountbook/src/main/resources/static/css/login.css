@@ -1,0 +1,27 @@
+form label {
+    display: block;
+    padding: 10px;
+}
+form input[type="text"] {
+    width: 300px;
+    height: 30px;
+}
+.login-content {
+    width: 70%;
+    margin: auto;
+    height: 350px;
+    background-color: rgb(233 235 236 / 80%);
+    padding: 30px;
+}
+.login-content-form {
+    width: 60%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.account-registration-screen-guidance {
+    padding: 10px;
+}
+.prymari-button {
+    margin-left: 10px;
+}
