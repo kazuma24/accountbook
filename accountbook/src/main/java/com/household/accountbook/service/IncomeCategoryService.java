@@ -16,32 +16,32 @@ public class IncomeCategoryService {
 
 	@Autowired
 	IncomeCategoryMapper incomeCategoryMapper;
-	
+
 	@Transactional
 	public List<IncomeCategory> DefaultCategorySettingAndGet(int id) {
 		return incomeCategoryMapper.DefaultCategorySettingAndGet(id);
 	}
-	
+
 	@Transactional
 	public List<IncomeCategory> SetIncomeCategory(String loginId) {
 		return incomeCategoryMapper.SetIncomeCategory(loginId);
 	}
-	
+
 	@Transactional
 	public List<IncomeCategory> GetRegisteredIncomeCategory(int accountId) {
 		return incomeCategoryMapper.GetRegisteredincomeCategory(accountId);
 	}
-	
+
 	@Transactional
 	public List<IncomeCategory> addNewIncomeCategory(IncomeCategory incomeCategory) {
 		return incomeCategoryMapper.addNewIncomeCategory(incomeCategory);
 	}
-	
+
 	@Transactional
 	public List<IncomeCategory> changeIncomeCategory(ChengeCategory chengeCategory) {
 		return incomeCategoryMapper.changeIncomeCategory(chengeCategory);
 	}
-	
+
 	@Transactional
 	public List<IncomeCategory> deletedIncomeCategory(DeleteCategory deleteCategory) {
 		return incomeCategoryMapper.deletedIncomeCategory(deleteCategory);

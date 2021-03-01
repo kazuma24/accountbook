@@ -132,6 +132,9 @@ public class DeleteAccountControllerTest {
 			     () -> assertEquals(403, errorCode4),
 			     () -> assertEquals("403 Forbidden 認証情報がありません。アクセスに失敗しました。", errorMessage4)
 	    );
+		
+		//テストデータ削除
+		tM.testDataDelete("deletefromcheck1Id");
 	}
 	
 	

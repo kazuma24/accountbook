@@ -99,6 +99,7 @@ public class IdCheckFromToMainControllerTest {
 			     () -> assertEquals(403, errorCode3),
 			     () -> assertEquals("403 Forbidden 認証情報がありません。アクセスに失敗しました。", errorMessage3)
 	    );
+		tM.testDataDelete("testLoginId11");
 		
 	}
 	

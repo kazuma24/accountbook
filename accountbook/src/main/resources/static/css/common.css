@@ -1,90 +1,107 @@
 /*画面共通*/
 body {
-    margin: unset;
-    width: auto;
-    height: 100vh;
+	margin: unset;
+	width: auto;
+	height: 100vh;
 }
+
 .title {
-    font-size: xxx-large;
-    margin: 2% 0% 0% 5%;
+	font-size: xxx-large;
+	margin: 2% 0% 0% 5%;
 }
+
 input[type="text"]:focus {
-    outline: 0;
+	outline: 0;
 }
+
 input[type="email"]:focus {
-    outline: 0;
+	outline: 0;
 }
+
 input[type="date"]:focus {
-    outline: 0;
+	outline: 0;
 }
+
 input[type="number"]:focus {
-    outline: 0;
+	outline: 0;
 }
+
 button:focus {
-    outline: 0;
+	outline: 0;
 }
+
 #react {
-    height: 100vh; 
-    width: auto;
-    margin: unset;
+	height: 100vh;
+	width: auto;
+	margin: unset;
 }
+
 .main-view {
-    height: 100vh;
-    margin: 5% 5%;
+	height: 100vh;
+	margin: 5% 5%;
 }
 /*ボタン共通*/
 .green-button {
-    color: white;
-    background: forestgreen;
-    width: 130px;
-    height: 35px;
+	color: white;
+	background: forestgreen;
+	width: 130px;
+	height: 35px;
 }
+
 .green-button:hover {
-    opacity: 0.7;
-    cursor: pointer;
+	opacity: 0.7;
+	cursor: pointer;
 }
+
 .prymari-button {
-    color: white;
-    background: cornflowerblue;
-    width: 130px;
-    height: 35px;
+	color: white;
+	background: cornflowerblue;
+	width: 130px;
+	height: 35px;
 }
+
 .prymari-button:hover {
-    opacity: 0.7;
-    cursor: pointer;
+	opacity: 0.7;
+	cursor: pointer;
 }
+
 .prengreen-button {
-    color: white;
-    background: rgb(157, 209, 159);
-    width: 130px;
-    height: 35px;
+	color: white;
+	background: rgb(157, 209, 159);
+	width: 130px;
+	height: 35px;
 }
+
 .prengreen-button:hover {
-    opacity: 0.7;
-    cursor: pointer;
+	opacity: 0.7;
+	cursor: pointer;
 }
+
 .red-button {
-    color: white;
-    background: rgb(202, 98, 90);
-    width: 130px;
-    height: 35px;
+	color: white;
+	background: rgb(202, 98, 90);
+	width: 130px;
+	height: 35px;
 }
+
 .red-button:hover {
-    opacity: 0.7;
-    cursor: pointer;
+	opacity: 0.7;
+	cursor: pointer;
 }
+
 .gray-button {
-    color: white;
-    background: rgb(155, 150, 150);
-    width: 130px;
-    height: 35px;
-    margin: 20px auto;
+	color: white;
+	background: rgb(155, 150, 150);
+	width: 130px;
+	height: 35px;
+	margin: 20px auto;
 }
+
 .gray-button:hover {
-    opacity: 0.7;
-    cursor: pointer;
+	opacity: 0.7;
+	cursor: pointer;
 }
 
 .react-calendar {
-    font-size: medium;
+	font-size: medium;
 }

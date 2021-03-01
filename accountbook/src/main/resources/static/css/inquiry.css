@@ -1,26 +1,30 @@
 form label {
-    display: block;
-    padding: 10px;
+	display: block;
+	padding: 10px;
 }
+
 form input[type="text"] {
-    width: 300px;
-    height: 30px;
+	width: 300px;
+	height: 30px;
 }
+
 .inquiry-content {
-    width: 70%;
-    margin: auto;
-    height: 450px;
-    background-color: rgb(233 235 236 / 80%);
-    padding: 30px;
+	width: 70%;
+	margin: auto;
+	height: 450px;
+	background-color: rgb(233 235 236/ 80%);
+	padding: 30px;
 }
+
 .inquiry-content-form {
-    width: 60%;
-    margin: auto;
-    margin-top: 50px;
-    margin-bottom: 50px;
+	width: 60%;
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
+
 textarea {
-    resize: none;
-    width: 370px;
-    height: 200px;
+	resize: none;
+	width: 370px;
+	height: 200px;
 }

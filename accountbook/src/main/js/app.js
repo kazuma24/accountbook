@@ -3,7 +3,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-//コンポーネント
+// コンポーネント
 import MainView from './components/MainView';
 import TitleView from './components/TitleView';
 

@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 function GetDateView(props) {
     const year = props.year;
     const month = props.month;
-    //その月の最終日取得
+    // その月の最終日取得
     const lastday = new Date(year, month, 0);
     const day = lastday.getDate();
     return (
@@ -89,15 +89,15 @@ class MonthrySpendingRatio extends React.Component {
             const status = response.status;
             
             if(status == 200) {
-                //接続に成功したがリソースの取得に失敗したとき
+                // 接続に成功したがリソースの取得に失敗したとき
                 if(res.errorCode) {
                     const errorCode = res.errorCode;
                     
                     Redirect(errorCode)
                 } else {
-                    //接続に成功しリソースの取得も完了時
+                    // 接続に成功しリソースの取得も完了時
                     console.log("amountData " + res);
-                    //金額データがない場合カテゴリリスト分の0を生成
+                    // 金額データがない場合カテゴリリスト分の0を生成
                     if(!Object.keys(res).length) {
                        amountData.push({"SpendingCategoryName":"登録されている支出はありません","spendingAmount":"0"})
                        this.setState({
@@ -118,7 +118,7 @@ class MonthrySpendingRatio extends React.Component {
                     
                 }
             } else {
-                //id取得 2xx系
+                // id取得 2xx系
                 console.log("2xx :" + status);
                 Redirect(status)
             }
@@ -131,7 +131,7 @@ class MonthrySpendingRatio extends React.Component {
                 Redirect(status)
             } else {
                 console.log("error:" + error);
-                location.href=`http://localhost:8080/api/error/500`;
+                location.href=`http:// localhost:8080/api/error/500`;
             }
         });
     }

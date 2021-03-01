@@ -83,15 +83,15 @@ class YearSpendingRatio extends React.Component {
             const status = response.status;
             
             if(status == 200) {
-                //接続に成功したがリソースの取得に失敗したとき
+                // 接続に成功したがリソースの取得に失敗したとき
                 if(res.errorCode) {
                     const errorCode = res.errorCode;
                     
                     Redirect(errorCode)
                 } else {
-                    //接続に成功しリソースの取得も完了時
+                    // 接続に成功しリソースの取得も完了時
                     console.log("amountData " + res);
-                    //金額データがない場合カテゴリリスト分の0を生成
+                    // 金額データがない場合カテゴリリスト分の0を生成
                     if(!Object.keys(res).length) {
                        amountData.push({"SpendingCategoryName":"登録されている支出はありません","spendingAmount":"0"})
                        this.setState({
@@ -112,7 +112,7 @@ class YearSpendingRatio extends React.Component {
                     
                 }
             } else {
-                //id取得 2xx系
+                // id取得 2xx系
                 console.log("2xx :" + status);
                 Redirect(status)
             }
@@ -125,7 +125,7 @@ class YearSpendingRatio extends React.Component {
                 Redirect(status)
             } else {
                 console.log("error:" + error);
-                location.href=`http://localhost:8080/api/error/500`;
+                location.href=`http:// localhost:8080/api/error/500`;
             }
         });
     }

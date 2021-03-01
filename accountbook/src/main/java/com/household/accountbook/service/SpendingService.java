@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.household.accountbook.entity.MonthryReport;
 import com.household.accountbook.entity.Spending;
 import com.household.accountbook.entity.SpendingMonthryAmountData;
@@ -18,17 +17,17 @@ public class SpendingService {
 
 	@Autowired
 	SpendingMapper spendingMapper;
-	
+
 	@Transactional
 	public void spendingRegister(Spending spending) {
 		spendingMapper.spendingRegister(spending);
 	}
-	
+
 	@Transactional
 	public List<SpendingMonthryAmountData> getMothryAmount(MonthryReport monthryReport) {
 		return spendingMapper.getMothryAmount(monthryReport);
 	}
-	
+
 	@Transactional
 	public List<SpendingYearAmountData> getYearAmount(YearReport yearReport) {
 		return spendingMapper.getYearAmount(yearReport);

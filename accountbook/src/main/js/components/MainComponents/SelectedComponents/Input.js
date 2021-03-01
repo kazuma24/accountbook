@@ -35,7 +35,7 @@ export default class Input extends React.Component {
         )
     }
 
-    /*関数*/
+    /* 関数 */
     spendingPageShow() {
         this.setState({
             page: {

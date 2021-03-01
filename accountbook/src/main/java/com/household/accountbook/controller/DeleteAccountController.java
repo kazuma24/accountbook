@@ -14,23 +14,17 @@ import com.household.accountbook.service.AccountService;
 
 @Controller
 public class DeleteAccountController {
-	
+
 	@Autowired
 	AccountService accountService;
-	
+
 	@GetMapping("/deleteaccount")
 	public ModelAndView deletefromcheck(ModelAndView mav) {
-		//認証情報からログインId取得
-	    String loginId = AuthenticationInformation.getAuthenticationInformationLoginId();
-		if(loginId.equals("anonymousUser")) {
-			//ログイン認証情報がanonymousUserの場合
-			mav.setViewName("apierror");
-			mav.addObject("errorCode",403);
-			mav.addObject("errorMessage",ErrorMessages.ERRORMESSAGE_403);
-			return mav;
-		}
+		// 認証情報からログインId取得
+		String loginId = AuthenticationInformation.getAuthenticationInformationLoginId();
+
 		try {
-			//SpringTest OK
+			// SpringTest OK
 			Account account = accountService.loginExamination(loginId);
 			mav.setViewName("certification");
 			mav.addObject("account", account);
@@ -38,51 +32,43 @@ public class DeleteAccountController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			mav.setViewName("apierror");
-			mav.addObject("errorCode",500);
-			mav.addObject("errorMessage",ErrorMessages.ERRORMESSAGE_500);
+			mav.addObject("errorCode", 500);
+			mav.addObject("errorMessage", ErrorMessages.ERRORMESSAGE_500);
 			return mav;
 		}
 	}
-	
+
 	@PostMapping("/delete")
 	public ModelAndView delete(@ModelAttribute("account") Account account, ModelAndView mav) {
-		//認証情報からログインId取得
-	    String loginId = AuthenticationInformation.getAuthenticationInformationLoginId();
-		if(loginId.equals("anonymousUser")) {
-			//ログイン認証情報がanonymousUserの場合
-			mav.setViewName("apierror");
-			mav.addObject("errorCode",403);
-			mav.addObject("errorMessage",ErrorMessages.ERRORMESSAGE_403);
-			return mav;
-		}
-		//認証情報と送られてきたログインIDが一致するか確認
-		if(loginId.equals(account.getLoginId())) {
+		// 認証情報からログインId取得
+		String loginId = AuthenticationInformation.getAuthenticationInformationLoginId();
+
+		// 認証情報と送られてきたログインIDが一致するか確認
+		if (loginId.equals(account.getLoginId())) {
 			try {
-				//SpringTest OK
-				int accountId = (int) accountService.idCollationCheck(account.getId(), loginId);;
+				// SpringTest OK
+				int accountId = (int) accountService.idCollationCheck(account.getId(), loginId);
 				accountService.allDelete(accountId);
 				account.setLoginId("");
 				account.setId(0);
-				mav.addObject("account",account);
+				mav.addObject("account", account);
 				System.out.println("account Delete OK");
 				mav.setViewName("accountregistartion");
 				return mav;
 			} catch (Exception e) {
-				//SpringTest OK
+				// SpringTest OK
 				mav.setViewName("apierror");
-				mav.addObject("errorCode",500);
-				mav.addObject("errorMessage",ErrorMessages.ERRORMESSAGE_500);
+				mav.addObject("errorCode", 500);
+				mav.addObject("errorMessage", ErrorMessages.ERRORMESSAGE_500);
 				return mav;
 			}
 		} else {
-			//ログイン認証情報がanonymousUserの場合
-			//SpringTest OK
+			// SpringTest OK
 			mav.setViewName("apierror");
-			mav.addObject("errorCode",403);
-			mav.addObject("errorMessage",ErrorMessages.ERRORMESSAGE_403);
+			mav.addObject("errorCode", 403);
+			mav.addObject("errorMessage", ErrorMessages.ERRORMESSAGE_403);
 			return mav;
 		}
-		
-		
+
 	}
 }

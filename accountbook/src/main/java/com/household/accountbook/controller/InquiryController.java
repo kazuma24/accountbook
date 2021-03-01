@@ -6,9 +6,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class InquiryController {
-	
+
 	@GetMapping("/inquiry")
 	public ModelAndView viewInquiry(ModelAndView mav) {
+		// SpringTest OK
 		mav.setViewName("inquiry");
 		return mav;
 	}

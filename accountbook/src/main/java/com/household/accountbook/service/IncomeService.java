@@ -18,17 +18,17 @@ public class IncomeService {
 
 	@Autowired
 	IncomeMapper incomeMapper;
-	
+
 	@Transactional
 	public void incomeRegister(Income income) {
 		incomeMapper.incomeRegister(income);
 	}
-	
+
 	@Transactional
 	public List<IncomeMonthryAmountData> getMothryAmount(MonthryReport monthryReport) {
 		return incomeMapper.getMothryAmount(monthryReport);
 	}
-	
+
 	@Transactional
 	public List<IncomeYearAmountData> getYearAmount(YearReport yearReport) {
 		return incomeMapper.getYearAmount(yearReport);

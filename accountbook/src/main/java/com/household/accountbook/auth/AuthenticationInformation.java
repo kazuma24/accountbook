@@ -10,29 +10,26 @@ import com.household.accountbook.service.AccountService;
 import com.household.accountbook.service.SpendingCategoryService;
 
 public class AuthenticationInformation {
-	
+
 	@Autowired
 	AccountService accountService;
-	
+
 	@Autowired
 	SpendingCategoryService spendingCategoryService;
-	
-	@Autowired
-	ApiError apiError;
 
-	//認証情報からログインIDを取得
+	// 認証情報からログインIDを取得
 	public static String getAuthenticationInformationLoginId() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String loginId = "";
 		if (principal instanceof UserDetails) {
-		  loginId = ((UserDetails)principal).getUsername();
+			loginId = ((UserDetails) principal).getUsername();
 		} else {
-		  loginId = principal.toString(); //anonymousUser
+			loginId = principal.toString(); // anonymousUser
 		}
 		return loginId;
 	}
-	
-	//認証情報ログインIDをもとにリクエストのIDを照合
+
+	// 認証情報ログインIDをもとにリクエストのIDを照合
 	/**
 	 * 
 	 * @param loginId
@@ -41,13 +38,16 @@ public class AuthenticationInformation {
 	 * @return OK accountId
 	 */
 	public Object iDVerificationcheck(String loginId, int accountId) {
+
+		ApiError apiError = new ApiError();
+
 		try {
 			Account account = accountService.loginExamination(loginId);
-			//URLのIdと認証済のID照合
+			// URLのIdと認証済のID照合
 			System.out.println("userRequestAccountId:" + accountId);
 			System.out.println("authId: " + account.getId());
-			if(accountId != account.getId()) {
-				System.out.println("認証エラー");
+			
+			if (accountId != account.getId()) {
 				apiError.setErrorCode(403);
 				return apiError;
 			} else {

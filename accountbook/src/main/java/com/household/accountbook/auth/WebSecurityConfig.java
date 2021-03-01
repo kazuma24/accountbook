@@ -14,48 +14,30 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
-    UserDetailsService userDetailsService;
+	UserDetailsService userDetailsService;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        
-        http.formLogin()
-            .loginPage("/login")
-            .loginProcessingUrl("/authenticate")
-            .usernameParameter("loginId")
-            .passwordParameter("password")
-            .defaultSuccessUrl("/main")
-            .permitAll();
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
 
+		http.formLogin().loginPage("/login").loginProcessingUrl("/authenticate").usernameParameter("loginId")
+				.passwordParameter("password").defaultSuccessUrl("/main").permitAll();
 
-        http.authorizeRequests()
-            .antMatchers("/").permitAll()
-            .antMatchers("/css/**.css","/built","/js/**.js","/**.png").permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .rememberMe()
-            .and()
-            .logout()
-            .logoutSuccessUrl("/login")
-            .permitAll()
-            .and()
-            .csrf()
-            .disable();
-             
-       
-        
-    }
-    
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    @Autowired
-    void configureAuthenticationManager(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
-            .passwordEncoder(passwordEncoder());
-    }
+		http.authorizeRequests().antMatchers("/").permitAll()
+				.antMatchers("/css/**.css", "/built", "/js/**.js", "/**.png").permitAll().anyRequest().authenticated()
+				.and().rememberMe().and().logout().logoutSuccessUrl("/login").permitAll().and().csrf().disable();
+
+	}
+
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Autowired
+	void configureAuthenticationManager(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	}
 
 }

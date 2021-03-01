@@ -19,25 +19,24 @@ import com.household.accountbook.service.IncomeService;
 
 @RestController
 public class IncomeRatioRestController {
-	
+
 	@Autowired
 	AccountService accountService;
-	
+
 	@Autowired
 	ApiError apiError;
-	
+
 	@Autowired
 	IncomeService incomeService;
-	
+
 	@Autowired
 	IncomeCategoryService incomeCategoryService;
-	
-	
-	//収入割合画面(月間)
+
+	// 収入割合画面(月間)
 	@PostMapping("/incomeacquisitionofeachamountdata")
-	public Object getAcquisitionOfEachAmountData(@RequestBody MonthryReport monthryReport) {//認証情報からログインId取得
+	public Object getAcquisitionOfEachAmountData(@RequestBody MonthryReport monthryReport) {// 認証情報からログインId取得
 		String loginId = AuthenticationInformation.getAuthenticationInformationLoginId();
-	
+
 		try {
 			monthryReport.setLoginId(loginId);
 			List<IncomeMonthryAmountData> opIncomeMonthryAmountData = incomeService.getMothryAmount(monthryReport);
@@ -49,12 +48,12 @@ public class IncomeRatioRestController {
 			return apiError;
 		}
 	}
-	
-	//収入割合画面(年間)
+
+	// 収入割合画面(年間)
 	@PostMapping("/yearincomeacquisitionofeachamountdata")
-	public Object getYearAcquisitionOfEachAmountData(@RequestBody YearReport yearReport) {//認証情報からログインId取得
+	public Object getYearAcquisitionOfEachAmountData(@RequestBody YearReport yearReport) {// 認証情報からログインId取得
 		String loginId = AuthenticationInformation.getAuthenticationInformationLoginId();
-	
+
 		try {
 			yearReport.setLoginId(loginId);
 			List<IncomeYearAmountData> opIncomeYearAmountData = incomeService.getYearAmount(yearReport);
@@ -66,5 +65,5 @@ public class IncomeRatioRestController {
 			return apiError;
 		}
 	}
-	
+
 }

@@ -25,42 +25,45 @@ public class AccountRegistrationCotroller {
 	AccountService accountservice;
 
 	@GetMapping("/")
-	public ModelAndView index(@ModelAttribute("account") Account account, ModelAndView mav, HttpServletRequest request, HttpServletResponse response) {
-		
-		//自動ログイン機能有ユーザーの場合
+	public ModelAndView index(ModelAndView mav, HttpServletRequest request, HttpServletResponse response) {
+
+		// 自動ログイン機能有ユーザーの場合
 		Cookie cookie[] = request.getCookies();
-		if(cookie != null) {
-			for(int i = 0; i < cookie.length; i++) {
-				if(cookie[i].getName().equals("remember-me")) {
-					//SpringSecurityからログインId取得
+		if (cookie != null) {
+			for (int i = 0; i < cookie.length; i++) {
+				if (cookie[i].getName().equals("remember-me")) {
+					// SpringSecurityからログインId取得
 					String loginId = AuthenticationInformation.getAuthenticationInformationLoginId();
-					if(loginId != "anonymousUser") {
+					if (loginId != "anonymousUser") {
 						String url = "/main";
 						try {
+							// SpringTest OK
 							response.sendRedirect(url);
 						} catch (IOException e) {
 							e.printStackTrace();
 							mav.setViewName("error");
-							mav.addObject("errorMessage",e.getMessage());
+							mav.addObject("errorMessage", e.getMessage());
 							return mav;
 						}
 					}
 				}
 			}
 		}
+		// SpringTest OK
+		Account account = new Account();
 		mav.setViewName("accountregistartion");
-		mav.addObject("account",account);
+		mav.addObject("account", account);
 		return mav;
 	}
-	
+
 	@PostMapping("/")
-	public ModelAndView accountsave(@ModelAttribute("account")Account account, ModelAndView mav) {
-		
-		//ログインID重複チェック
+	public ModelAndView accountsave(@ModelAttribute("account") Account account, ModelAndView mav) {
+
+		// ログインID重複チェック
 		String loginId = account.getLoginId();
 		try {
-			
-			if(accountservice.loginIdDuplicateExamination(loginId) >= 1) {
+
+			if (accountservice.loginIdDuplicateExamination(loginId) >= 1) {
 				mav.setViewName("accountregistartion");
 				mav.addObject("error", true);
 				mav.addObject("errorMessage", "ログインIDが使用済です");
@@ -68,12 +71,11 @@ public class AccountRegistrationCotroller {
 			}
 		} catch (Exception e) {
 			mav.setViewName("error");
-			mav.addObject("errorMessage",e.getMessage());
+			mav.addObject("errorMessage", e.getMessage());
 			return mav;
 		}
-		
-		
-		//アカウント登録
+
+		// アカウント登録
 		try {
 			String preHashPassword = account.getPassword();
 			PasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -81,14 +83,14 @@ public class AccountRegistrationCotroller {
 			accountservice.accountRegister(account);
 			mav.setViewName("completionofregistration");
 			mav.addObject("account", account);
-			mav.addObject("preHashPassword",preHashPassword);
+			mav.addObject("preHashPassword", preHashPassword);
 			return mav;
 		} catch (Exception e) {
 			mav.setViewName("error");
-			mav.addObject("errorMessage",e.getMessage());
+			mav.addObject("errorMessage", e.getMessage());
 			return mav;
 		}
-		
+
 	}
-	
+
 }

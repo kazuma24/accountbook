@@ -16,25 +16,25 @@ import com.household.accountbook.mapper.SpendingAndIncomeMapper;
 
 @Service
 public class SpendingAndIncomeService {
-	
+
 	@Autowired
 	SpendingAndIncomeMapper spendingAndIncomeMapper;
-	
+
 	@Transactional
 	public MonthryTotal getMonthryReport(MonthryReport monthryReport) {
 		return spendingAndIncomeMapper.getMonthryReport(monthryReport);
 	}
-	
+
 	@Transactional
 	public YearTotal getYearReport(YearReport yearReport) {
 		return spendingAndIncomeMapper.getYearReport(yearReport);
 	}
-	
+
 	@Transactional
 	public List<SpendingForTheDay> getSpendingForTheDay(MonthryReport monthryReport) {
 		return spendingAndIncomeMapper.getSpendingForTheDay(monthryReport);
 	}
-	
+
 	@Transactional
 	public List<IncomeForTheDay> getIncomeForTheDay(MonthryReport monthryReport) {
 		return spendingAndIncomeMapper.getIncomeForTheDay(monthryReport);
