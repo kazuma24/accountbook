@@ -15,7 +15,7 @@ public interface IncomeCategoryMapper {
 	// デフォルト収入カテゴリテーブルの値を収入カテゴリテーブルにインサートして、インサートした値を取得（初期ユーザー）
 	@Select("INSERT INTO income_category " + "(account_id, income_category_name, income_category_color) "
 			+ "SELECT #{id}, default_income_category_name, default_income_category_color " + "FROM "
-			+ "default_income_category " + "returning income_category_name, income_category_color")
+			+ "default_income_category " + "returning #{id} AS accountId, income_category_name, income_category_color")
 	List<IncomeCategory> DefaultCategorySettingAndGet(int id);
 
 	// 自分のIDで収入カテゴリテーブルに登録されているデータを取得（初期ユーザー以外）

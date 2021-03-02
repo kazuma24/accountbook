@@ -11,7 +11,7 @@ import com.household.accountbook.entity.Account;
 @Controller
 public class LoginController {
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login")
 	public ModelAndView login(@ModelAttribute Account account, ModelAndView mav) {
 		// SpringTest OK
 		mav.setViewName("login");

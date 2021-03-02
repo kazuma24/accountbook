@@ -51,4 +51,5 @@ public class SpendingCategoryService {
 	public int checkTheRemainingNumber(int accountId) {
 		return spendingCategoryMapper.checkTheRemainingNumber(accountId);
 	}
+	
 }

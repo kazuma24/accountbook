@@ -15,7 +15,7 @@ public interface SpendingCategoryMapper {
 	// デフォルト支出カテゴリテーブルの値を支出カテゴリテーブルにインサートして、インサートした値を取得（初期ユーザー）
 	@Select("INSERT INTO spending_category " + "(account_id, spending_category_name, spending_category_color) "
 			+ "SELECT #{id}, default_spending_category_name, default_spending_category_color " + "FROM "
-			+ "default_spending_category " + "returning spending_category_name, spending_category_color")
+			+ "default_spending_category " + "returning #{id} AS accountId, spending_category_name, spending_category_color")
 	List<SpendingCategory> DefaultCategorySettingAndGet(int id);
 
 	// 自分のIDで支出カテゴリテーブルに登録されているデータを取得（初期ユーザー以外）

@@ -31,11 +31,6 @@ public class IncomeCategory {
 		this.incomeCategoryColor = incomeCategoryColor;
 	}
 
-	public IncomeCategory(int accountId, String incomeCategoryName, String incomeCategoryColor) {
-		super();
-		this.accountId = accountId;
-		this.incomeCategoryName = incomeCategoryName;
-		this.incomeCategoryColor = incomeCategoryColor;
-	}	
+	
 
 }

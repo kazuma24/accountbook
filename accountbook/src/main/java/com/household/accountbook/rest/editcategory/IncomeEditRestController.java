@@ -1,14 +1,12 @@
 package com.household.accountbook.rest.editcategory;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,7 +34,7 @@ public class IncomeEditRestController {
 	@Autowired
 	AuthenticationInformation authenticationInformation;
 
-	@RequestMapping("/incomecategorylist/{accountId}")
+	@RequestMapping(value = "/incomecategorylist/{accountId}", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
 	public Object incomegetList(@PathVariable int accountId, ModelAndView mav) {
 
 		// 認証情報からログインId取得
@@ -63,36 +61,18 @@ public class IncomeEditRestController {
 	}
 
 	// 新規追加
-	@RequestMapping("/addnewrequestincome")
+	@RequestMapping(value = "/addnewrequestincome", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	public Object addNewIncomeCategory(@RequestBody IncomeCategory incomeCategory) {
-		System.out.println("addNewCategory");
-		Optional<String> name = Optional.ofNullable(incomeCategory.getIncomeCategoryName());
-		Optional<String> color = Optional.ofNullable(incomeCategory.getIncomeCategoryColor());
+		System.out.println("addNewCategory" + incomeCategory.getIncomeCategoryName() + ":");
 		try {
-			if(!name.isPresent() || !color.isPresent()) {
-				apiError.setMessage(ErrorMessages.DATEEMPTYMESSAGE);
-				return apiError;
-			}
-			// 登録済カテゴリ取得
-			List<IncomeCategory> registedList = incomeCategoryService
-					.GetRegisteredIncomeCategory(incomeCategory.getAccountId());
-			if (registedList.size() >= 30) {
-				// 登録カテゴリが30以上の場合
-				apiError.setMessage(ErrorMessages.MAXCATEGORYREGISTER);
-				return apiError;
-			}
-			String inputIncomeCategoryName = incomeCategory.getIncomeCategoryName();
-			Stream<IncomeCategory> check = registedList.parallelStream()
-					.filter(s -> s.getIncomeCategoryName().equals(inputIncomeCategoryName));
-			if (check.count() > 0) {
-				// 同じカテゴリ名があった場合
-				apiError.setMessage(inputIncomeCategoryName + "は登録済です");
-				return apiError;
+			Object validatedData = new CommonValiDation(apiError, authenticationInformation, null,
+					incomeCategoryService).addCheck(incomeCategory);
+			if (validatedData instanceof ApiError) {
+				return (ApiError) validatedData;
 			} else {
-				List<IncomeCategory> indertIncomeCategory = incomeCategoryService.addNewIncomeCategory(incomeCategory);
-				return indertIncomeCategory;
+				// Spring Test OK
+				return incomeCategoryService.addNewIncomeCategory(incomeCategory);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			apiError.setErrorCode(500);
@@ -101,33 +81,20 @@ public class IncomeEditRestController {
 	}
 
 	// カテゴリ名編集
-	@RequestMapping("/changecategoryincome")
+	@RequestMapping(value = "/changecategoryincome", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	public Object changeIncomeCategory(@RequestBody ChengeCategory chengeCateogory) {
 		System.out.println("changeCategory");
 
-		// 認証情報からログインId取得
-		String loginId = AuthenticationInformation.getAuthenticationInformationLoginId();
 		try {
-			int accountId = chengeCateogory.getAccountId();
-			Object obj = authenticationInformation.iDVerificationcheck(loginId, accountId);
-			// URLのIdと認証済のID照合
-			if (obj instanceof ApiError) {
-				return apiError = (ApiError) obj;
+			Object validatedData = new CommonValiDation(apiError, authenticationInformation, null,
+					incomeCategoryService).editCheck(chengeCateogory);
+			if (validatedData instanceof ApiError) {
+				return (ApiError) validatedData;
+			} else {
+				// OK
+				return incomeCategoryService.changeIncomeCategory(chengeCateogory);
 			}
-			System.out.println("userRequestAccountId:" + accountId);
-			System.out.println("authId: " + obj);
-			List<Object> requestData = Arrays.asList(chengeCateogory.getBeforeName(), chengeCateogory.getAfterName(),
-					chengeCateogory.getAfterColor());
-			Long check = requestData.stream().filter(s -> s == null || s.equals("")).count();
-			if (check > 0) {
-				apiError.setMessage(ErrorMessages.DATEEMPTYMESSAGE);
-				return apiError;
-			}
-
-			List<IncomeCategory> changedIncomeCategory = incomeCategoryService.changeIncomeCategory(chengeCateogory);
-			return changedIncomeCategory;
 		} catch (Exception e) {
-			e.printStackTrace();
 			e.printStackTrace();
 			apiError.setErrorCode(500);
 			return apiError;
@@ -135,38 +102,30 @@ public class IncomeEditRestController {
 	}
 
 	// 削除
-	@RequestMapping("/deletecategoryincome")
+	@RequestMapping(value = "/deletecategoryincome", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	public Object deleteIncomeCategory(@RequestBody DeleteCategory deleteCategory) {
-		System.out.println("deleteCategory");// 認証情報からログインId取得
+		System.out.println("deleteCategory");
 
-		String loginId = AuthenticationInformation.getAuthenticationInformationLoginId();
 		try {
-			int accountId = deleteCategory.getAccountId();
-			Object obj = authenticationInformation.iDVerificationcheck(loginId, accountId);
-			// URLのIdと認証済のID照合
-			if (obj instanceof ApiError) {
-				return apiError = (ApiError) obj;
+			// バリデーション
+			Object validatedData = new CommonValiDation(apiError, authenticationInformation, null,
+					incomeCategoryService).deleteCheck(deleteCategory);
+			if (validatedData instanceof ApiError) {
+				return (ApiError) validatedData;
+			} else {
+				// 削除する前に残りカテゴリ数をチェック
+				DeleteCategory data = (DeleteCategory) validatedData;
+				int num = incomeCategoryService.checkTheRemainingNumber(data.getAccountId());
+				if (num == 1) {
+					// 残数１の場合削除停止
+					apiError.setErrorCode(400);
+					apiError.setMessage(ErrorMessages.NOTCATEGORYDELETE);
+					return apiError;
+				}
+				// spending, spending_category から削除
+				return incomeCategoryService.deletedIncomeCategory(deleteCategory);
 			}
-			String category = deleteCategory.getDeleteCategory();
-			if (category.equals("") || category == null) {
-				apiError.setMessage(ErrorMessages.DATEEMPTYMESSAGE);
-				return apiError;
-			}
-			System.out.println("userRequestAccountId:" + accountId);
-			System.out.println("authId: " + obj);
-
-			// 削除する前に残りカテゴリ数をチェック
-			int num = incomeCategoryService.checkTheRemainingNumber(accountId);
-			if (num == 1) {
-				apiError.setMessage(ErrorMessages.NOTCATEGORYDELETE);
-				return apiError;
-			}
-
-			// 削除
-			List<IncomeCategory> deletedIncomeCategory = incomeCategoryService.deletedIncomeCategory(deleteCategory);
-			return deletedIncomeCategory;
 		} catch (Exception e) {
-			e.printStackTrace();
 			e.printStackTrace();
 			apiError.setErrorCode(500);
 			return apiError;

@@ -2,8 +2,6 @@ package com.household.accountbook.entity;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class ApiError implements Serializable {
 
 	/**
